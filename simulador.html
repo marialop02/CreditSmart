@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Credito</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div style="display:flex;gap:12px;align-items:center">
+            <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:grid;place-items:center;color:white;font-weight:700">CS</div>
+            <div style="font-weight:700">CreditSmart</div>
+        </div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="simulador.html">Simulador</a>
+            <a href="solicitar.html">Solicitar Crédito</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2>Simulador de Crédito</h2>
+        <p class="note">Filtra los datos segun nombre, monto o orden de Relevancia deseado.</p>
+        
+        <section class="filters">
+            <input type="text" placeholder="Buscar por nombre de producto (ej. Vehículo)">
+            <select aria-label="rango de monto">
+                <option>Rango de monto: Todos</option>
+                <option>$1.000.000 - $10.000.000</option>
+                <option>$10.000.001 - $50.000.000</option>
+                <option>$50.000.001 - $200.000.000</option>
+            </select>
+            <select aria-label="ordenar por:">
+                <option>Relevancia</option>
+                <option>Tasa ascendente</option>
+                <option>Tasa descendente</option>
+            </select>
+            <div style="margin-left:auto;display:flex;gap:8px">
+                <button class="btn">Limpiar</button>
+                <a class="btn primary" href="solicitar.html">Solicitar crédito</a>
+            </div>
+        </section>
+
+        <section class="grid" aria-label="resultados filtrados">
+<!-- Reutilizamos las cards del index (datos estáticos) -->
+<!-- PRODUCT: Crédito Libre Inversión -->
+            <article class="card">
+                <div class="top">
+                    <img class="icon" src="https://cdn-icons-png.flaticon.com/512/9849/9849614.png" alt="Libre Inversión">
+                    <div>
+                        <div style="font-weight:700">Crédito Libre Inversión</div>
+                        <div class="meta">Monto: $1.000.000 - $50.000.000 · Plazo: 12 meses - 60 meses</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="rate">Tasa: 10.5% anual</div>
+                    <div class="meta">Crédito para libre consumo y proyectos personales.</div>
+                </div>
+                <div class="actions">
+                    <button class="btn primary">Ver detalles</button>
+                    <button class="btn ghost">Solicitar</button>
+                </div>
+            </article>
+
+
+<!-- PRODUCT: Crédito Vehículo -->
+            <article class="card">
+                <div class="top">
+                    <img class="icon" src="https://cdn-icons-png.flaticon.com/512/5566/5566885.png" alt="Vehículo">
+                    <div>
+                        <div style="font-weight:700">Crédito Vehículo</div>
+                        <div class="meta">Monto: $5.000.000 - $80.000.000 · Plazo máximo: 60 meses</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="rate">Tasa: 9.8% anual</div>
+                    <div class="meta">Financiamiento para compra de automóviles nuevos o usados.</div>
+                </div>
+                <div class="actions">
+                    <button class="btn primary">Ver detalles</button>
+                    <button class="btn ghost">Solicitar</button>
+                </div>
+            </article>
+
+<!-- PRODUCT: Crédito Vivienda -->
+            <article class="card">
+                <div class="top">
+                    <img class="icon" src="https://cdn-icons-png.flaticon.com/512/4221/4221696.png" alt="Vivienda">
+                        <div>
+                        <div style="font-weight:700">Crédito Vivienda</div>
+                        <div class="meta">Monto: $20.000.000 - $500.000.000 · Plazo máximo: 240 meses</div>
+                        </div>
+                </div>
+                <div>
+                    <div class="rate">Tasa: 7.2% anual</div>
+                    <div class="meta">Hipoteca y proyectos de vivienda con plazos largos.</div>
+                </div>
+                    <div class="actions">
+                        <button class="btn primary">Ver detalles</button>
+                        <button class="btn ghost">Solicitar</button>
+                    </div>
+            </article>
+
+<!-- PRODUCT: Crédito Educativo -->
+            <article class="card">
+                <div class="top">
+                    <img class="icon" src="https://cdn-icons-png.flaticon.com/512/12201/12201269.png" alt="Educativo">
+                        <div>
+                            <div style="font-weight:700">Crédito Educativo</div>
+                            <div class="meta">Monto: $1.000.000 - $100.000.000 · Plazo máximo: 120 meses</div>
+                        </div>
+                </div>
+                <div>
+                    <div class="rate">Tasa: 6.5% anual</div>
+                    <div class="meta">Financia estudios de pregrado y posgrado.</div>
+                </div>
+                <div class="actions">
+                    <button class="btn primary">Ver detalles</button>
+                    <button class="btn ghost">Solicitar</button>
+                </div>
+            </article>
+
+<!-- PRODUCT: Crédito Empresarial -->
+            <article class="card">
+                <div class="top">
+                    <img class="icon" src="" alt="Empresarial">
+                        <div>
+                            <div style="font-weight:700">Crédito Empresarial</div>
+                            <div class="meta">Monto: $10.000.000 - $100.000.000 · Plazo máximo: 48 meses</div>
+                        </div>
+                </div>
+                <div>
+                    <div class="rate">Tasa: 10.0% anual</div>
+                    <div class="meta">Líneas de crédito y capital de trabajo para empresas.</div>
+                </div>
+                <div class="actions">
+                    <button class="btn primary">Ver detalles</button>
+                    <button class="btn ghost">Solicitar</button>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+    <section>
+        <footer>
+            <div class="footer">
+                © 2025 FinTech Solutions S.A.S — CreditSmart (Entrega S20 - EA1)
+            </div>
+        </footer>
+    </section>
+</body>
+</html>
