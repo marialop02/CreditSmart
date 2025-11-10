@@ -109,7 +109,13 @@ nav a{
     box-shadow:0 6px 18px rgba(15,23,42,.06);
     display:flex;
     flex-direction:column;
-    gap:12px
+    gap:12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05); /* la agranda un poco */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .card .top{
@@ -146,7 +152,18 @@ nav a{
     border-radius:10px;
     border:0;
     cursor:pointer;
-    font-weight:600
+    font-weight:600;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #5ecbff;
+    color: #666;
+    border-color: #0b84ff;
 }
 
 .btn.primary{
@@ -155,11 +172,23 @@ nav a{
     padding: 10px;
 }
 
+.btn.primary:hover {
+    background-color: #5ecbff;
+    color: #666;
+    border-color: #0b84ff;
+}
+
 .btn.ghost{
     background:transparent;
     border:1px solid #444;
     color:var(--accent);
     padding: 10px;
+}
+
+.btn.ghost:hover {
+    background-color: #5ecbff;
+    color: #666;
+    border-color: #0b84ff;
 }
 
 footer{
@@ -171,10 +200,15 @@ footer{
     height: 100px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
+    justify-content: center; 
+    align-items: center;
     height: 100px; 
 }
 
 /* responsive */
-@media (max-width:720px){.hero{flex-direction:column;align-items:flex-start}}
+@media (max-width:720px){
+    .hero{
+        flex-direction:column;
+        align-items:center
+    }
+}
