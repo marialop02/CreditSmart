@@ -5,13 +5,13 @@ María Lucia López Córdoba
 
 ---
 
-## 📋 **Descripción del proyecto**
+## **Descripción del proyecto**
 **CreditSmart** es una plataforma web desarrollada como prototipo para la empresa *FinTech Solutions S.A.S.*.  
 Permite a los usuarios **consultar productos crediticios**, **simular préstamos** y **realizar solicitudes de crédito en línea**, mediante un diseño web simple, atractivo y adaptable a distintos dispositivos.
 
 ---
 
-## 🧱 **Estructura de archivos del proyecto**
+## **Estructura de archivos del proyecto**
 
 CreditSmart/
 ├── index.html # Página principal (Catálogo de créditos)
