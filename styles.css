@@ -1,0 +1,529 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: justify;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 50px;
+    width: 100%;
+    background: #fff;
+    padding: 15px 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 1px 5px #aaa;
+    margin-top: 0;
+    overflow: visible;
+}
+
+.title h2{
+    margin: 0;
+    font-size: 24px;
+    color: #1720a3;
+    font-weight: 900;
+}
+
+.top-nav{
+    display: flex;
+    gap: 20px;
+}
+
+.top-nav a{
+    text-decoration: none;
+    font-size: 16px;
+    color: #1720a3;
+    font-weight: 400;
+    transition: color .2s;
+}
+
+.top-nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 100%;
+    margin: 20px 0 0 0;
+    padding: 0;
+    margin-top: 60px;
+}
+
+.banner {
+    position: relative;
+    display: flex;
+    flex-direction: row; /* en pantallas grandes: lado a lado */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0004;
+    z-index: 1;
+}
+
+.banner-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    position: relative;
+    color: #000;
+    text-align: center;
+    background: rgb(185, 223, 255);
+}
+
+.banner-content h1{
+    font-size: 48px;
+    color: #1720a3;
+    font-weight: 900;
+    text-align: center;
+}
+
+.banner-content p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    max-width: 90%;
+}
+
+
+.banner-img {
+    width: 100%;                  /* ocupa todo el ancho disponible */
+    height: 100%;                 /* ajusta la altura automáticamente */
+    min-height: 300px;    
+    flex: 1;
+    background-image: url("img/banner.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
+
+
+/* Botones */
+.banner-btns {
+    display: flex;
+    justify-content: center; /* centra los botones horizontalmente */
+    gap: 12px;               /* espacio entre botones */
+    margin-top: 20px;        /* opcional: separación con el contenido superior */
+}
+
+.banner-btns button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.simulador {
+    background-color: #1720a3;
+    color: white;
+}
+
+.simulador:hover{
+    background-color: #007bff;
+    color: black;
+    box-shadow: 0 1px 5px #aaa;
+    transform: scale(1.05);
+}
+
+.request {
+    background-color: #28a745;
+    color: white;
+}
+
+.request:hover{
+    background-color: #7DE895;
+    color: #000;
+    box-shadow: 0 1px 5px #aaa;
+    transform: scale(1.05);
+}
+
+.banner-simulador {
+    width: 100%;             /* ocupa todo el ancho */
+    margin-top: 60px;        /* separación desde el header */
+    padding: auto;      /* espacio interno */
+    background-color: #f5f7fa; /* fondo suave */
+    border-radius: 8px;
+    text-align: center;      /* centra el contenido */
+}
+
+.buscador-botones {
+    display: flex;
+    justify-content: flex-end; /* alinea a la derecha */
+    gap: 16px;
+    margin-top: 10px;
+    padding-right: 10px; /* opcional: espacio desde el borde derecho */
+}
+
+.buscador-titulo {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #1720a3;
+    margin-bottom: 30px;
+}
+
+.buscador-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.buscador-campos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.buscador-input, .buscador-select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buscador-input:focus, .buscador-select:focus {
+    border-color: #1720a3;
+    box-shadow: 0 0 6px rgba(23,32,163,0.3);
+    outline: none;
+}
+
+.buscador-botones {
+    display: flex;              /* activa flexbox */
+    flex-direction: row;        /* asegura que estén en fila */
+    justify-content: center;  /* los empuja a la derecha */
+    gap: 16px;                  /* espacio entre botones */
+    margin-top: 20px;
+}
+
+.btn-limpiar, .btn-solicitar {
+    width: 200px;
+    text-align: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-limpiar {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-limpiar:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+.btn-solicitar {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-solicitar:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+
+.catalog-title {
+    width: 100%;
+    padding: 40px 0 20px 0;
+}
+
+
+.catalog-title h2 {
+    font-size: 2rem;          /* tamaño grande */
+    font-weight: 900;         /* negrita fuerte */
+    text-align: center;
+    color: #1720a3;           /* color distintivo */
+    text-transform: uppercase;/* todo en mayúsculas */
+    margin: 0;
+}
+
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    gap: 20px; /* espacio entre tarjetas */
+    padding: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    max-width: 350px;
+    margin: 20px auto;
+}
+
+.card .image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.card .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* recorta sin deformar */
+    display: block;
+}
+
+.card .top, .card .tasa, .card .descripcion {
+    padding: 4px 8px;
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #1720a3;
+    margin: 6px 0;
+}
+
+.card .descripcion p {
+    text-align: justify;
+    margin: 4px 0;
+    color: #555;
+}
+
+.card .botones {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 16px;
+}
+
+.card .botones button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.botones-details {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.botones-request {
+    background-color: #28a745;
+    color: #fff;
+}
+
+form {
+    max-width: 700px;           /* ancho máximo */
+    margin: 40px auto;          /* centrado en la página */
+    padding: 30px;
+    background-color: #f5f7fa;  /* fondo suave */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Nunito', sans-serif;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+form label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1720a3;
+}
+
+form input, form select, form textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #1720a3;
+    box-shadow: 0 0 6px rgba(23,32,163,0.3);
+    outline: none;
+}
+
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.full {
+    grid-column: span 2; /* útil si usas grid */
+}
+
+/*buscador-botones {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.btn-limpiar, .btn-solicitar {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-limpiar {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-limpiar:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+.btn-solicitar {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-solicitar:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}*/
+
+
+.footer {
+    background-color: #1c1c1c;       /* fondo oscuro elegante */
+    color: #f0f0f0;                  /* texto claro */
+    padding: 40px 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.footer .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.footer .logo h3 {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #1720a3;                 /* color distintivo */
+}
+
+.footer .logo p {
+    margin: 0;
+    color: #ccc;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+    color: #00bcd4;                 /* efecto hover */
+}
+
+.footer-info {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.footer-info .small {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #777;
+}
+
+/* 📱 Responsive: imagen abajo */
+@media (max-width: 600px) {
+    .banner {
+        flex-direction: column;
+        height: auto;
+        min-height: 400px;  /* altura mínima más compacta */
+        padding: 0;      /* menos espacio interno */
+    }
+
+    .banner-content {
+        order: 1;
+        padding: 10px;  
+    }
+
+    .banner-img {
+        order: 2;
+        height: 40vh;
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .catalog {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .catalog {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .footer .content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-nav {
+        flex-direction: row;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
