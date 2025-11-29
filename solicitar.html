@@ -3,111 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitar Credito</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Inicio - CreditSmart</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div style="display:flex;gap:12px;align-items:center">
-        <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:grid;place-items:center;color:white;font-weight:700">CS</div>
-        <div style="font-weight:700">CreditSmart</div>
+        <div class="title">
+            <h2>CreditSmart</h2>
         </div>
-        <nav>
+        <nav class="top-nav">
             <a href="index.html">Inicio</a>
             <a href="simulador.html">Simulador</a>
             <a href="solicitar.html">Solicitar Crédito</a>
         </nav>
     </header>
-
     <main class="container">
-        <h2>Solicitud de Crédito</h2>
-        <p class="hint">Para solicitar tu credito por favor ingresa los datos solicitados.</p>
-
+        <section class="banner-simulador">
+            <div class="banner-content">
+                <h1>CreditSmart</h1>
+                <p>Con nuestro simulador podrás calcular fácilmente el valor de tu cuota mensual según el monto, plazo y tasa de interés que elijas. Descubre cómo se ajusta el crédito a tus necesidades y toma decisiones financieras con mayor seguridad.</p>
+            </div>
+        </section>
+        <section>
+            <div class="catalog-title">
+                <h2>OPCIONES DE CRÉDITO</h2>
+            </div>
+        </section>
         <form>
-        <fieldset style="border:0;padding:0;margin:0">
-            <legend style="font-weight:700;margin-bottom:6px">Datos personales</legend>
-        </fieldset>
-
-        <div>
-            <label for="nombre">Nombre completo</label>
-            <input id="nombre" type="text" placeholder="Juan Pérez">
-        </div>
-
-        <div>
-            <label for="cedula">Cédula</label>
-            <input id="cedula" type="number" placeholder="12345678">
-        </div>
-
-        <div>
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="juan@ejemplo.com">
-        </div>
-
-        <div>
-            <label for="telefono">Teléfono</label>
-            <input id="telefono" type="tel" placeholder="+57 300 000 0000">
-        </div>
-
-        <div class="full">
-            <label for="tipo">Tipo de crédito</label>
-            <select id="tipo">
-            <option>Crédito Libre Inversión</option>
-            <option>Crédito Vehículo</option>
-            <option>Crédito Vivienda</option>
-            <option>Crédito Educativo</option>
-            <option>Crédito Empresarial</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="monto">Monto solicitado</label>
-            <input id="monto" type="number" placeholder="10000000">
-        </div>
-
-        <div>
-            <label for="plazo">Plazo en meses</label>
-            <select id="plazo">
-            <option>12</option>
-            <option>24</option>
-            <option>36</option>
-            <option>48</option>
-            <option>60</option>
-            </select>
-        </div>
-
-        <div class="full">
-            <label for="destino">Destino del crédito</label>
-            <textarea id="destino" placeholder="Describa el uso del crédito..."></textarea>
-        </div>
-
-        <div>
-            <label for="empresa">Empresa donde trabaja</label>
-            <input id="empresa" type="text" placeholder="Compañía S.A.S">
-        </div>
-
-        <div>
-            <label for="cargo">Cargo</label>
-            <input id="cargo" type="text" placeholder="Analista">
-        </div>
-
-        <div>
-            <label for="ingresos">Ingresos mensuales</label>
-            <input id="ingresos" type="number" placeholder="2500000">
-        </div>
-
-        <div class="full actions">
-            <button type="reset" class="btn ghost">Limpiar formulario</button>
-            <button type="button" class="btn primary">Enviar solicitud</button>
-        </div>
-
+            <div>
+                <label for="nombre">Nombre completo</label>
+                <input id="nombre" type="text" placeholder="Juan Pérez">
+            </div>
+            <div>
+                <label for="cedula">Cédula</label>
+                <input id="cedula" type="number" placeholder="12345678">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="juan@ejemplo.com">
+            </div>
+            <div>
+                <label for="telefono">Teléfono</label>
+                <input id="telefono" type="tel" placeholder="+57 300 000 0000">
+            </div>
+            <div class="full">
+                <label for="tipo">Tipo de crédito</label>
+                <select id="tipo">
+                    <option>Crédito Libre Inversión</option>
+                    <option>Crédito Vehículo</option>
+                    <option>Crédito Vivienda</option>
+                    <option>Crédito Educativo</option>
+                    <option>Crédito Empresarial</option>
+                </select>
+            </div>
+            <div>
+                <label for="monto">Monto solicitado</label>
+                <input id="monto" type="number" placeholder="10000000">
+            </div>
+            <div>
+                <label for="plazo">Plazo en meses</label>
+                <select id="plazo">
+                    <option>12 meses</option>
+                    <option>24 meses</option>
+                    <option>36 meses</option>
+                    <option>48 meses</option>
+                    <option>60 meses</option>
+                </select>
+            </div>
+            <div class="full">
+                <label for="destino">Destino del crédito</label>
+                <textarea id="destino" placeholder="Describa el uso del crédito..."></textarea>
+            </div>
+            <div>
+                <label for="empresa">Empresa donde trabaja</label>
+                <input id="empresa" type="text" placeholder="Compañía S.A.S">
+            </div>
+            <div>
+                <label for="cargo">Cargo</label>
+                <input id="cargo" type="text" placeholder="Analista">
+            </div>
+            <div>
+                <label for="ingresos">Ingresos mensuales</label>
+                <input id="ingresos" type="number" placeholder="2500000">
+            </div>
+            <div class="buscador-botones">
+                        <button type="reset" class="btn-limpiar">Limpiar</button>
+                        <button type="submit" class="btn-solicitar">Solicitar crédito</button>
+            </div>
         </form>
     </main>
     <section>
-        <footer>
-            <div class="footer">
-                © 2025 FinTech Solutions S.A.S — CreditSmart (Entrega S20 - EA1)
+        <footer class="footer">
+            <div class="content">
+                <div class="logo" aria-label="Logo CreditSmart, tu plataforma de credito">
+                    <h3>CreditSmart</h3>
+                    <p>Tu plataforma de créditos inteligente</p>
+                </div>
+                <nav class="footer-nav" aria-label="Enlaces del sitio">
+                    <a href="index.html">Inicio</a>
+                    <a href="simulador.html">Simulador</a>
+                    <a href="solicitar.html">Solicitar</a>
+                </nav>
+                <div class="footer-info">
+                    <p>&copy; 2025 CreditSmart. Todos los derechos reservados.</p>
+                    <p class="small">Proyecto educativo — no representa una entidad real.</p>
+                </div>
             </div>
         </footer>
     </section>
+
 </body>
 </html>
