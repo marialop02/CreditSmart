@@ -4,14 +4,32 @@ import CreditCard from "../components/CreditCard";
 
 export default function Simulador() {
     const [busqueda, setBusqueda] = useState("");
-    const [monto, setMonto] = useState("");
+    const [montoMin, setMontoMin] = useState("");
+    const [montoMax, setMontoMax] = useState("");
+    const [ordenTasa, setOrdenTasa] = useState("none");
+    const [monto, setMonto] = useState(""); 
     const [resultado, setResultado] = useState(null);
 
-  // Filtrar créditos por nombre
-    const filtrados = creditos.filter((c) =>
+    // Filtrar créditos
+    let filtrados = creditos.filter((c) =>
         c.nombre.toLowerCase().includes(busqueda.toLowerCase())
     );
 
+    // Filtro por rango de monto
+    if (montoMin) {
+        filtrados = filtrados.filter((c) => c.monto >= parseFloat(montoMin));
+    }
+    if (montoMax) {
+        filtrados = filtrados.filter((c) => c.monto <= parseFloat(montoMax));
+    }
+
+    // Ordenar por tasa de interés
+    if (ordenTasa === "asc") {
+        filtrados = [...filtrados].sort((a, b) => a.tasa - b.tasa);
+    } else if (ordenTasa === "desc") {
+        filtrados = [...filtrados].sort((a, b) => b.tasa - a.tasa);
+    }
+    
   // Calcular cuota mensual con fórmula de amortización simple
     const calcularCuota = (credito) => {
         const tasaMensual = credito.tasa / 100 / 12;
