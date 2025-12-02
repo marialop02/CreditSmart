@@ -50,30 +50,66 @@
 }
 
 input {
-  margin: 8px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+    margin: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 button {
-  margin-top: 8px;
-  padding: 8px 12px;
-  background: #0056b3;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #0056b3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 button:hover {
-  background: #003d80;
+    background: #003d80;
 }
 
 .resultado {
-  margin-top: 20px;
-  padding: 16px;
-  background: #e6f0ff;
-  border: 1px solid #0056b3;
-  border-radius: 8px;
+    margin-top: 20px;
+    padding: 16px;
+    background: #e6f0ff;
+    border: 1px solid #0056b3;
+    border-radius: 8px;
 }
+
+.form-solicitar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-solicitar input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.form-solicitar button {
+    padding: 10px;
+    background: #0056b3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.form-solicitar button:hover {
+    background: #003d80;
+}
+
+.confirmacion {
+    margin-top: 20px;
+    padding: 16px;
+    background: #e6ffe6;
+    border: 1px solid #00b300;
+    border-radius: 8px;
+}
+
