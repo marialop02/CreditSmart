@@ -113,3 +113,16 @@ button:hover {
     border-radius: 8px;
 }
 
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+.resumen {
+    margin-top: 16px;
+    padding: 12px;
+    background: #f0f8ff;
+    border: 1px solid #0056b3;
+    border-radius: 6px;
+}
+
