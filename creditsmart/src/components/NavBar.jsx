@@ -1,15 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
-export default function NavBar() {
+import { NavLink } from "react-router-dom";
+export default function Navbar() {
     return (
-        <nav className="navbar">
-            <h1>CreditSmart</h1>
-            <ul>
-                <li><Link to="/">Inicio</Link></li>
-                <li><Link to="/simulador">Simulador</Link></li>
-                <li><Link to="/solicitar">Solicitar</Link></li>
-            </ul>
-        </nav>
+        <header>
+            <div className="title"><h2>CreditSmart</h2></div>
+            <nav className="top-nav">
+                <NavLink to="/">Inicio</NavLink>
+                <NavLink to="/simulador">Simulador</NavLink>
+                <NavLink to="/solicitar">Solicitar Crédito</NavLink>
+            </nav>
+        </header>
     );
 }
+

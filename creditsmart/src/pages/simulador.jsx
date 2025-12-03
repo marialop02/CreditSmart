@@ -1,90 +1,113 @@
-import React, { useState } from "react";
-import { creditos } from "../data/creditos";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import creditsData from "../data/creditsData";
 import CreditCard from "../components/CreditCard";
 
-export default function Simulador() {
-    const [busqueda, setBusqueda] = useState("");
-    const [montoMin, setMontoMin] = useState("");
-    const [montoMax, setMontoMax] = useState("");
-    const [ordenTasa, setOrdenTasa] = useState("none");
-    const [monto, setMonto] = useState(""); 
-    const [resultado, setResultado] = useState(null);
-
-    // Filtrar créditos
-    let filtrados = creditos.filter((c) =>
-        c.nombre.toLowerCase().includes(busqueda.toLowerCase())
-    );
-
-    // Filtro por rango de monto
-    if (montoMin) {
-        filtrados = filtrados.filter((c) => c.monto >= parseFloat(montoMin));
-    }
-    if (montoMax) {
-        filtrados = filtrados.filter((c) => c.monto <= parseFloat(montoMax));
-    }
-
-    // Ordenar por tasa de interés
-    if (ordenTasa === "asc") {
-        filtrados = [...filtrados].sort((a, b) => a.tasa - b.tasa);
-    } else if (ordenTasa === "desc") {
-        filtrados = [...filtrados].sort((a, b) => b.tasa - a.tasa);
-    }
-    
-  // Calcular cuota mensual con fórmula de amortización simple
-    const calcularCuota = (credito) => {
-        const tasaMensual = credito.tasa / 100 / 12;
-        const n = credito.plazo;
-        const P = monto ? parseFloat(monto) : credito.monto;
-
-        const cuota = (P * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -n));
-        setResultado({
-            nombre: credito.nombre,
-            cuota: cuota.toFixed(2),
-        });
-    };
-
+export default function Simulator() {
     return (
-        <section>
-            <h2>Simulador de Créditos</h2>
-
-            {/* Buscador */}
-            <input
-                type="text"
-                placeholder="Buscar crédito..."
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-            />
-
-            {/* Monto personalizado */}
-            <input
-                type="number"
-                placeholder="Monto a simular"
-                value={monto}
-                onChange={(e) => setMonto(e.target.value)}
-            />
-
-            {/* Lista de créditos filtrados */}
-            <div className="credit-list">
-                {filtrados.map((c) => (
-                    <div key={c.id}>
-                        <CreditCard {...c} />
-                        <button onClick={() => calcularCuota(c)}>Calcular cuota</button>
-                    </div>
-                ))}
-            </div>
-
-            {/* Resultado */}
-            {resultado && (
-                <div className="resultado">
-                    <h3>Resultado</h3>
-                    <p>
-                        Crédito: <strong>{resultado.nombre}</strong>
-                    </p>
-                    <p>
-                        Cuota mensual: <strong>${resultado.cuota}</strong>
-                    </p>
+        <>
+            <header>
+                <div className="title">
+                    <h2>CreditSmart</h2>
                 </div>
-            )}
-        </section>
+
+                <nav className="top-nav">
+                    <Link to="/">Inicio</Link>
+                    <Link to="/simulador">Simulador</Link>
+                    <Link to="/solicitar">Solicitar Crédito</Link>
+                </nav>
+            </header>
+
+            <main className="container">
+                {/* Banner */}
+                <section className="banner-simulador">
+                    <div className="banner-content">
+                        <h1>CreditSmart</h1>
+                        <p>
+                        Con nuestro simulador podrás calcular fácilmente el valor de tu cuota mensual
+                        según el monto, plazo y tasa de interés que elijas. Descubre cómo se ajusta
+                        el crédito a tus necesidades y toma decisiones financieras con mayor seguridad.
+                        </p>
+                    </div>
+                </section>
+
+                {/* Título */}
+                <section>
+                    <div className="catalog-title">
+                        <h2>OPCIONES DE CRÉDITO</h2>
+                    </div>
+                </section>
+
+                {/* Buscador */}
+                <section className="buscador-creditos">
+                    <form className="buscador-form" aria-label="Buscador de productos y créditos">
+                        <div className="buscador-campos">
+                            <input
+                                type="text"
+                                placeholder="Buscar por nombre de prod"
+                                className="buscador-input"
+                            />
+
+                            <select className="buscador-select">
+                                <option value="">Rango de monto: Todos</option>
+                                <option value="1-10">$1M - $10M</option>
+                                <option value="10-50">$10M - $50M</option>
+                                <option value="50-100">$50M - $100M</option>
+                            </select>
+
+                            <select className="buscador-select">
+                                <option value="relevancia">Relevancia</option>
+                                <option value="menor-monto">Menor monto</option>
+                                <option value="mayor-monto">Mayor monto</option>
+                                <option value="menor-tasa">Menor tasa</option>
+                            </select>
+                        </div>
+
+                        <div className="buscador-botones">
+                            <button type="reset" className="btn-limpiar">
+                                Limpiar
+                            </button>
+                            <button type="submit" className="btn-solicitar">
+                                Solicitar crédito
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                {/* CATÁLOGO */}
+                <section className="catalog">
+                    {creditsData.length === 0 ? (
+                        <p>No hay créditos disponibles</p>
+                    ) : (
+                        creditsData.map((credit) => (
+                            <CreditCard key={credit.id} credit={credit} />
+                        ))
+                    )}
+                </section>
+            </main>
+
+        {/* Footer */}
+            <section>
+                <footer className="footer">
+                    <div className="content">
+                        <div className="logo" aria-label="Logo CreditSmart, tu plataforma de credito">
+                            <h3>CreditSmart</h3>
+                            <p>Tu plataforma de créditos inteligente</p>
+                        </div>
+
+                        <nav className="footer-nav" aria-label="Enlaces del sitio">
+                            <a href="/">Inicio</a>
+                            <a href="/simulador">Simulador</a>
+                            <a href="/solicitar">Solicitar</a>
+                        </nav>
+
+                        <div className="footer-info">
+                            <p>© 2025 CreditSmart. Todos los derechos reservados.</p>
+                            <p className="small">Proyecto educativo — no representa una entidad real.</p>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </>
     );
 }

@@ -1,9 +1,8 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import Inicio from "./pages/inicio";
-import Simulador from "./pages/simulador";
-import Solicitar from "./pages/solicitar";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import Inicio from "./pages/Inicio.jsx";
+import Simulador from "./pages/Simulador.jsx";
+import Solicitar from "./pages/Solicitar.jsx";
 
 export default function App() {
   return (
@@ -13,6 +12,9 @@ export default function App() {
         <Route path="/" element={<Inicio />} />
         <Route path="/simulador" element={<Simulador />} />
         <Route path="/solicitar" element={<Solicitar />} />
+        
+        {/* Si escriben una ruta que no existe → redirige al inicio */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );
