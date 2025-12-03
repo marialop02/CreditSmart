@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
+import NavBar from "./components/NavBar.jsx"
 import Inicio from "./pages/Inicio.jsx";
 import Simulador from "./pages/Simulador.jsx";
 import Solicitar from "./pages/Solicitar.jsx";

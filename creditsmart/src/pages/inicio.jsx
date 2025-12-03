@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import creditsData from "../data/creditsData";
 import CreditCard from "../components/CreditCard";
 
-export default function Home() {
+export default function Inicio() {
     return (
         <>
             {/* HEADER */}
@@ -13,9 +13,9 @@ export default function Home() {
                 </div>
 
                 <nav className="top-nav">
-                    <a href="/">Inicio</a>
-                    <a href="/simulador">Simulador</a>
-                    <a href="/solicitar">Solicitar Crédito</a>
+                    <Link to ="/">Inicio</Link>
+                    <Link to="/simulador">Simulador</Link>
+                    <Link to="/solicitar">Solicitar Crédito</Link>
                 </nav>
             </header>
 
@@ -30,13 +30,13 @@ export default function Home() {
                         </p>
 
                         <div className="banner-btns">
-                            <a href="/simulador">
+                            <Link to="/simulador">
                                 <button className="simulador">Simulador</button>
-                            </a>
+                            </Link>
 
-                            <a href="/solicitar">
+                            <Link to="/solicitar">
                                 <button className="request">Solicitar Crédito</button>
-                            </a>
+                            </Link>
                         </div>
                     </div>
 
@@ -68,9 +68,9 @@ export default function Home() {
                         </div>
 
                         <nav className="footer-nav" aria-label="Enlaces del sitio">
-                            <a href="/">Inicio</a>
-                            <a href="/simulador">Simulador</a>
-                            <a href="/solicitar">Solicitar</a>
+                            <Link to="/">Inicio</Link>
+                            <Link to="/simulador">Simulador</Link>
+                            <Link to="/solicitar">Solicitar</Link>
                         </nav>
 
                         <div className="footer-info">

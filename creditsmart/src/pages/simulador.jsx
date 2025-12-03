@@ -4,7 +4,33 @@ import creditsData from "../data/creditsData";
 import CreditCard from "../components/CreditCard";
 
 export default function Simulator() {
-    return (
+    const [search, setSearch] = useState("");
+    const [range, setRange] = useState(""); // rango de monto
+    const [sort, setSort] = useState("");   // orden por tasa
+    const [sortAmount, setSortAmount] = useState("");
+    
+    // Función para filtrar créditos
+    const filteredCredits = creditsData
+        .filter((credit) =>
+            credit.name.toLowerCase().includes(search.toLowerCase())
+        )
+        .filter((credit) => {
+            if (!range) return true;
+            const [min, max] = range.split("-").map(Number);
+            // quitar símbolos y convertir a número
+            const [amountMin, amountMax] = credit.amount
+                .replace(/\$|\.|M/g, "")
+                .split("-")
+                .map((v) => parseInt(v.trim(), 10));
+            return amountMin >= min * 1000000 && amountMax <= max * 1000000;
+        })
+        .sort((a, b) => {
+            if (sort === "menor-tasa") return a.interest - b.interest;
+            if (sort === "mayor-tasa") return b.interest - a.interest;
+            return 0;
+        });
+    
+    return(
         <>
             <header>
                 <div className="title">
@@ -44,15 +70,32 @@ export default function Simulator() {
                         <div className="buscador-campos">
                             <input
                                 type="text"
-                                placeholder="Buscar por nombre de prod"
+                                placeholder="Buscar por nombre de producto"
                                 className="buscador-input"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
                             />
 
-                            <select className="buscador-select">
+                            <select 
+                                className="buscador-select"
+                                value={range}
+                                onChange={(e) => setRange(e.target.value)}
+                            >
                                 <option value="">Rango de monto: Todos</option>
                                 <option value="1-10">$1M - $10M</option>
                                 <option value="10-50">$10M - $50M</option>
                                 <option value="50-100">$50M - $100M</option>
+                            </select>
+
+                            {/* Orden por tasa */}
+                            <select
+                                className="buscador-select"
+                                value={sort}
+                                onChange={(e) => setSort(e.target.value)}
+                            >
+                                <option value="">Ordenar por</option>
+                                <option value="menor-tasa">Menor tasa</option>
+                                <option value="mayor-tasa">Mayor tasa</option>
                             </select>
 
                             <select className="buscador-select">

@@ -1,18 +1,10 @@
-export default function Apply() {
+import { Link } from "react-router-dom";
+import Navbar from "../components/NavBar";
+
+export default function Solicitar() {
     return (
         <>
-            {/* HEADER */}
-            <header>
-                <div className="title">
-                    <h2>CreditSmart</h2>
-                </div>
-
-                <nav className="top-nav">
-                    <a href="/">Inicio</a>
-                    <a href="/simulador">Simulador</a>
-                    <a href="/solicitar">Solicitar Crédito</a>
-                </nav>
-            </header>
+            <NavBar />
 
             <main className="container">
                 {/* BANNER */}
@@ -124,9 +116,9 @@ export default function Apply() {
                         </div>
 
                         <nav className="footer-nav" aria-label="Enlaces del sitio">
-                            <a href="/">Inicio</a>
-                            <a href="/simulador">Simulador</a>
-                            <a href="/solicitar">Solicitar</a>
+                            <Link to="/">Inicio</Link>
+                            <Link to="/simulador">Simulador</Link>
+                            <Link to="/solicitar">Solicitar</Link>
                         </nav>
 
                         <div className="footer-info">
