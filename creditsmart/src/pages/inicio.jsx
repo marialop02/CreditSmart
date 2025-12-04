@@ -50,7 +50,7 @@ export default function Inicio() {
                     </div>
                 </section>
 
-                {/* CATÁLOGO DE TARJETAS — las mismas que ya tenías */}
+                {/* CATÁLOGO DE TARJETAS — las mismas que ya tenía */}
                 <section className="catalog">
                     {creditsData.map((credit) => (
                         <CreditCard key={credit.id} credit={credit} />

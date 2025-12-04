@@ -18,14 +18,17 @@ export default function Solicitar() {
     const [ingresos, setIngresos] = useState("");
     const [solicitudes, setSolicitudes] = useState([]); // array en memoria
     const [cuota, setCuota] = useState(null);
+    const creditoSeleccionado = creditsData.find((c) => c.name === tipo);
+    const tasaAnual = creditoSeleccionado?.interest || 0;
+    const tasaMensual = tasaAnual / 12 / 100;
     const [mensaje, setMensaje] = useState("");
 
     // Función para calcular cuota mensual estimada
-    const calcularCuota = (monto, plazo, tasa = 0.015) => {
-        if (!monto || !plazo) return null;
-        const interesMensual = tasa; // 1.5% mensual aprox
+    const calcularCuota = (monto, plazo, tasaMensual) => {
+        if (!monto || !plazo || !tasaMensual) return null;
         const cuota =
-            (monto * interesMensual) / (1 - Math.pow(1 + interesMensual, -plazo));
+            (monto * tasaMensual) /
+            (1 - Math.pow(1 + tasaMensual, -plazo));
         return Math.round(cuota);
     };
 
@@ -33,13 +36,13 @@ export default function Solicitar() {
     const handleMontoChange = (e) => {
         const value = e.target.value;
         setMonto(value);
-        setCuota(calcularCuota(Number(value), Number(plazo)));
+        setCuota(calcularCuota(Number(value), Number(plazo), tasaMensual));
     };
 
     const handlePlazoChange = (e) => {
         const value = e.target.value.replace(" meses", "");
         setPlazo(value);
-        setCuota(calcularCuota(Number(monto), Number(value)));
+        setCuota(calcularCuota(Number(monto), Number(value), tasaMensual));
     };
 
     // Obtener plazos dinámicos según tipo de crédito
@@ -211,6 +214,11 @@ export default function Solicitar() {
                                 <option key={p} value={p}>{p} meses</option>
                             ))}
                         </select>
+                    </div>
+
+                    <div>
+                        <label>Cuota mensual estimada:</label>
+                        <p>{cuota ? `$${cuota}` : "Ingrese monto y plazo"}</p>
                     </div>
 
                     <div className="full">
