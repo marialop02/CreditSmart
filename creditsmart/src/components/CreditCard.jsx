@@ -14,8 +14,17 @@ export default function CreditCard({ credit }) {
 
             {/* Monto y plazo */}
             <div className="descripcion">
-                <p><strong>Monto:</strong> {credit.amount}</p>
-                <p><strong>Plazo:</strong> {credit.term}</p>
+                <p>
+                    <strong>Monto:</strong> {""}
+                    {new Intl.NumberFormat("es-CO").format(credit.minAmount)} -{" "}
+                    {new Intl.NumberFormat("es-CO").format(credit.maxAmount)}
+                </p>
+                <p>
+                    <strong>Plazo:</strong>{" "}
+                    {credit.termOptions && credit.termOptions.length > 0
+                        ? `${Math.min(...credit.termOptions)} - ${Math.max(...credit.termOptions)} meses`
+                        : credit.term}
+                </p>
             </div>
             {/* Tasa */}
             <div className="tasa">

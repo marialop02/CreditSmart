@@ -17,12 +17,7 @@ export default function Simulator() {
         .filter((credit) => {
             if (!range) return true;
             const [min, max] = range.split("-").map(Number);
-            // quitar símbolos y convertir a número
-            const [amountMin, amountMax] = credit.amount
-                .replace(/\$|\.|M/g, "")
-                .split("-")
-                .map((v) => parseInt(v.trim(), 10));
-            return amountMin >= min * 1000000 && amountMax <= max * 1000000;
+            return credit.minAmount >= min * 1000000 && credit.maxAmount <= max * 1000000;
         })
         .sort((a, b) => {
             if (sort === "menor-tasa") return a.interest - b.interest;
@@ -97,13 +92,6 @@ export default function Simulator() {
                                 <option value="menor-tasa">Menor tasa</option>
                                 <option value="mayor-tasa">Mayor tasa</option>
                             </select>
-
-                            <select className="buscador-select">
-                                <option value="relevancia">Relevancia</option>
-                                <option value="menor-monto">Menor monto</option>
-                                <option value="mayor-monto">Mayor monto</option>
-                                <option value="menor-tasa">Menor tasa</option>
-                            </select>
                         </div>
 
                         <div className="buscador-botones">
@@ -119,10 +107,10 @@ export default function Simulator() {
 
                 {/* CATÁLOGO */}
                 <section className="catalog">
-                    {creditsData.length === 0 ? (
+                    {filteredCredits.length === 0 ? (
                         <p>No hay créditos disponibles</p>
                     ) : (
-                        creditsData.map((credit) => (
+                        filteredCredits.map((credit) => (
                             <CreditCard key={credit.id} credit={credit} />
                         ))
                     )}

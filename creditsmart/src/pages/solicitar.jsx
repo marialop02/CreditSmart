@@ -1,10 +1,109 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
+import { useState } from "react";
+import creditsData from "../data/creditsData";
 
 export default function Solicitar() {
+      // Estados del formulario
+    const [nombre, setNombre] = useState("");
+    const [cedula, setCedula] = useState("");
+    const [email, setEmail] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [tipo, setTipo] = useState("Crédito Libre Inversión");
+    const [monto, setMonto] = useState("");
+    const [plazo, setPlazo] = useState("12");
+    const [destino, setDestino] = useState("");
+    const [empresa, setEmpresa] = useState("");
+    const [cargo, setCargo] = useState("");
+    const [ingresos, setIngresos] = useState("");
+    const [solicitudes, setSolicitudes] = useState([]); // array en memoria
+    const [cuota, setCuota] = useState(null);
+    const [mensaje, setMensaje] = useState("");
+
+    // Función para calcular cuota mensual estimada
+    const calcularCuota = (monto, plazo, tasa = 0.015) => {
+        if (!monto || !plazo) return null;
+        const interesMensual = tasa; // 1.5% mensual aprox
+        const cuota =
+            (monto * interesMensual) / (1 - Math.pow(1 + interesMensual, -plazo));
+        return Math.round(cuota);
+    };
+
+    // Actualizar cuota cuando cambian monto o plazo
+    const handleMontoChange = (e) => {
+        const value = e.target.value;
+        setMonto(value);
+        setCuota(calcularCuota(Number(value), Number(plazo)));
+    };
+
+    const handlePlazoChange = (e) => {
+        const value = e.target.value.replace(" meses", "");
+        setPlazo(value);
+        setCuota(calcularCuota(Number(monto), Number(value)));
+    };
+
+    // Obtener plazos dinámicos según tipo de crédito
+    const obtenerPlazos = (tipo) => {
+        const credito = creditsData.find((c) => c.name === tipo);
+        if (!credito) return [];
+        const term = credito.term;
+
+        if (term.includes("-")) {
+            const [min, max] = term.replace(" meses", "").split("-").map((n) => parseInt(n.trim()));
+            const opciones = [];
+            for (let i = min; i <= max; i += 12) {
+                opciones.push(i);
+            }
+            return opciones;
+        } else if (term.includes("Hasta")) {
+            const max = parseInt(term.replace("Hasta", "").replace("meses", "").trim());
+            const opciones = [];
+            for (let i = 12; i <= max; i += 12) {
+                opciones.push(i);
+            }
+            return opciones;
+        }
+        return [];
+    };
+
+    // Manejo de envío
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const nuevaSolicitud = {
+            nombre,
+            cedula,
+            email,
+            telefono,
+            tipo,
+            monto,
+            plazo,
+            destino,
+            empresa,
+            cargo,
+            ingresos,
+            cuota,
+        };
+        setSolicitudes([...solicitudes, nuevaSolicitud]);
+        setMensaje("✅ Solicitud enviada con éxito");
+
+        // limpiar formulario
+        setNombre("");
+        setCedula("");
+        setEmail("");
+        setTelefono("");
+        setTipo("Crédito Libre Inversión");
+        setMonto("");
+        setPlazo("12");
+        setDestino("");
+        setEmpresa("");
+        setCargo("");
+        setIngresos("");
+        setCuota(null);
+    };
+    
     return (
         <>
-            <NavBar />
+            <Navbar/>
 
             <main className="container">
                 {/* BANNER */}
@@ -27,76 +126,151 @@ export default function Solicitar() {
                 </section>    
 
                 {/* FORMULARIO */}
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="nombre">Nombre completo</label>
-                        <input id="nombre" type="text" placeholder="Juan Pérez" />
+                        <input 
+                            id="nombre" 
+                            type="text" 
+                            placeholder="Juan Pérez" 
+                            value={nombre}
+                            onChange={(e) => setNombre(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="cedula">Cédula</label>
-                        <input id="cedula" type="number" placeholder="12345678" />
+                        <input
+                            id="cedula"
+                            type="number"
+                            placeholder="12345678"
+                            value={cedula}
+                            onChange={(e) => setCedula(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="email">Email</label>
-                        <input id="email" type="email" placeholder="juan@ejemplo.com" />
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="juan@ejemplo.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="telefono">Teléfono</label>
-                        <input id="telefono" type="tel" placeholder="+57 300 000 0000" />
+                        <input
+                            id="telefono"
+                            type="tel"
+                            placeholder="+57 300 000 0000"
+                            value={telefono}
+                            onChange={(e) => setTelefono(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div className="full">
                         <label htmlFor="tipo">Tipo de crédito</label>
-                        <select id="tipo">
-                            <option>Crédito Libre Inversión</option>
-                            <option>Crédito Vehículo</option>
-                            <option>Crédito Vivienda</option>
-                            <option>Crédito Educativo</option>
-                            <option>Crédito Empresarial</option>
+                        <select
+                            id="tipo"
+                            value={tipo}
+                            onChange={(e) => setTipo(e.target.value)}
+                        >
+                            <option value="Crédito Libre Inversión">Crédito Libre Inversión</option>
+                            <option value="Crédito Vehicular">Crédito Vehicular</option>
+                            <option value="Crédito Vivienda">Crédito Vivienda</option>
+                            <option value="Crédito Educativo">Crédito Educativo</option>
+                            <option value="Crédito Empresarial">Crédito Empresarial</option>
+                            <option value="Crédito Hipotecario">Crédito Hipotecario</option>
+                            <option value="Crédito de Compra de Cartera">Crédito de Compra de Cartera</option>
                         </select>
                     </div>
 
                     <div>
                         <label htmlFor="monto">Monto solicitado</label>
-                        <input id="monto" type="number" placeholder="10000000" />
+                        <input
+                            id="monto"
+                            type="number"
+                            placeholder="10000000"
+                            value={monto}
+                            onChange={handleMontoChange}
+                            required
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="plazo">Plazo en meses</label>
-                        <select id="plazo">
-                            <option>12 meses</option>
-                            <option>24 meses</option>
-                            <option>36 meses</option>
-                            <option>48 meses</option>
-                            <option>60 meses</option>
+                        <select id="plazo" value={plazo} onChange={handlePlazoChange}>
+                            {creditsData.find((c) => c.name === tipo)?.termOptions.map((p) => (
+                                <option key={p} value={p}>{p} meses</option>
+                            ))}
                         </select>
                     </div>
 
                     <div className="full">
                         <label htmlFor="destino">Destino del crédito</label>
-                        <textarea id="destino" placeholder="Describa el uso del crédito..."></textarea>
+                        <textarea
+                            id="destino"
+                            placeholder="Describa el uso del crédito..."
+                            value={destino}
+                            onChange={(e) => setDestino(e.target.value)}
+                            required
+                        ></textarea>
                     </div>
 
                     <div>
                         <label htmlFor="empresa">Empresa donde trabaja</label>
-                        <input id="empresa" type="text" placeholder="Compañía S.A.S" />
+                        <input
+                            id="empresa"
+                            type="text"
+                            placeholder="Compañía S.A.S"
+                            value={empresa}
+                            onChange={(e) => setEmpresa(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="cargo">Cargo</label>
-                        <input id="cargo" type="text" placeholder="Analista" />
+                        <input
+                            id="cargo"
+                            type="text"
+                            placeholder="Analista"
+                            value={cargo}
+                            onChange={(e) => setCargo(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="ingresos">Ingresos mensuales</label>
-                        <input id="ingresos" type="number" placeholder="2500000" />
+                        <input
+                            id="ingresos"
+                            type="number"
+                            placeholder="2500000"
+                            value={ingresos}
+                            onChange={(e) => setIngresos(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div className="buscador-botones">
-                        <button type="reset" className="btn-limpiar">
+                        <button
+                        type="reset"
+                        className="btn-limpiar"
+                        onClick={() => {
+                            setNombre(""); setCedula(""); setEmail(""); setTelefono("");
+                            setTipo("Crédito Libre Inversión"); setMonto(""); setPlazo("12");
+                            setDestino(""); setEmpresa(""); setCargo(""); setIngresos("");
+                            setCuota(null); setMensaje("");
+                        }}
+                        >
                             Limpiar
                         </button>
                         <button type="submit" className="btn-solicitar">
