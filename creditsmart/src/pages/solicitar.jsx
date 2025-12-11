@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
 import { useState } from "react";
-import creditsData from "../data/creditsData";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
+import { useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+
 
 export default function Solicitar() {
       // Estados del formulario
@@ -20,10 +22,24 @@ export default function Solicitar() {
     const [ingresos, setIngresos] = useState("");
     const [solicitudes, setSolicitudes] = useState([]); // array en memoria
     const [cuota, setCuota] = useState(null);
-    const creditoSeleccionado = creditsData.find((c) => c.name === tipo);
+    const [mensaje, setMensaje] = useState("");
+
+    // 🔹 Productos desde Firestore
+    const [productos, setProductos] = useState([]);
+
+    useEffect(() => {
+        const fetchProductos = async () => {
+            const snap = await getDocs(collection(db, "productos"));
+            const data = snap.docs.map(doc => doc.data());
+            setProductos(data);
+        };
+        fetchProductos();
+    }, []);
+
+    // 🔹 Selección de producto y tasas
+    const creditoSeleccionado = productos.find((c) => c.name === tipo);
     const tasaAnual = creditoSeleccionado?.interest || 0;
     const tasaMensual = tasaAnual / 12 / 100;
-    const [mensaje, setMensaje] = useState("");
 
     // Función para calcular cuota mensual estimada
     const calcularCuota = (monto, plazo, tasaMensual) => {
