@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
 import { useState } from "react";
 import creditsData from "../data/creditsData";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Solicitar() {
       // Estados del formulario
@@ -70,25 +72,28 @@ export default function Solicitar() {
     };
 
     // Manejo de envío
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const nuevaSolicitud = {
-            nombre,
-            cedula,
-            email,
-            telefono,
-            tipo,
-            monto,
-            plazo,
-            destino,
-            empresa,
-            cargo,
-            ingresos,
-            cuota,
-        };
-        setSolicitudes([...solicitudes, nuevaSolicitud]);
-        setMensaje("✅ Solicitud enviada con éxito");
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    const nuevaSolicitud = {
+        nombre,
+        cedula,
+        email,
+        telefono,
+        tipo,
+        monto: Number(monto),
+        plazo: Number(plazo),
+        destino,
+        empresa,
+        cargo,
+        ingresos: Number(ingresos),
+        cuota: Number(cuota),
+        estado: "pendiente",
+        createdAt: serverTimestamp(),
+    };
 
+    try {
+        await addDoc(collection(db, "solicitudes"), nuevaSolicitud);
+        setMensaje("✅ Solicitud enviada con éxito");
         // limpiar formulario
         setNombre("");
         setCedula("");
@@ -102,7 +107,11 @@ export default function Solicitar() {
         setCargo("");
         setIngresos("");
         setCuota(null);
-    };
+    } catch (error) {
+        console.error("Error al guardar en Firestore:", error);
+        setMensaje("❌ Error al enviar la solicitud");
+    }
+};
     
     return (
         <>
