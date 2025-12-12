@@ -7,6 +7,7 @@ export default function Navbar() {
                 <NavLink to="/">Inicio</NavLink>
                 <NavLink to="/simulador">Simulador</NavLink>
                 <NavLink to="/solicitar">Solicitar Crédito</NavLink>
+                <NavLink to="/solicitudes">Solicitudes</NavLink>
             </nav>
         </header>
     );

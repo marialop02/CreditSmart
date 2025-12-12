@@ -4,6 +4,7 @@ import CreditCard from "../components/CreditCard";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import Navbar from "../components/NavBar";
 
 export default function Inicio() {
     const [productos, setProductos] = useState([]);
@@ -30,19 +31,8 @@ export default function Inicio() {
 
     return (
         <>
-            {/* HEADER */}
-            <header>
-                <div className="title">
-                    <h2>CreditSmart</h2>
-                </div>
-
-                <nav className="top-nav">
-                    <Link to ="/">Inicio</Link>
-                    <Link to="/simulador">Simulador</Link>
-                    <Link to="/solicitar">Solicitar Crédito</Link>
-                </nav>
-            </header>
-
+            <Navbar />
+            
             {/* BANNER PRINCIPAL */}
             <main className="container">
                 <section className="banner">
@@ -100,9 +90,11 @@ export default function Inicio() {
                         </div>
 
                         <nav className="footer-nav" aria-label="Enlaces del sitio">
-                            <Link to="/">Inicio</Link>
-                            <Link to="/simulador">Simulador</Link>
-                            <Link to="/solicitar">Solicitar</Link>
+                            <a href="/">Inicio</a>
+                            <a href="/simulador">Simulador</a>
+                            <a href="/solicitar">Solicitar</a>
+                            <a href="/solicitudes">Solicitudes</a>
+                            <a href="/productos">Productos</a>
                         </nav>
 
                         <div className="footer-info">

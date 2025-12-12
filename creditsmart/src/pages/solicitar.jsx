@@ -322,9 +322,11 @@ export default function Solicitar() {
                         </div>
 
                         <nav className="footer-nav" aria-label="Enlaces del sitio">
-                            <Link to="/">Inicio</Link>
-                            <Link to="/simulador">Simulador</Link>
-                            <Link to="/solicitar">Solicitar</Link>
+                            <a href="/">Inicio</a>
+                            <a href="/simulador">Simulador</a>
+                            <a href="/solicitar">Solicitar</a>
+                            <a href="/solicitudes">Solicitudes</a>
+                            <a href="/productos">Productos</a>
                         </nav>
 
                         <div className="footer-info">

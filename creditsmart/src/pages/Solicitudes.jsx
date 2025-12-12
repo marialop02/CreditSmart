@@ -8,6 +8,7 @@ export default function Solicitudes() {
     const [solicitudes, setSolicitudes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [mensaje, setMensaje] = useState("");
 
     useEffect(() => {
         const fetchSolicitudes = async () => {
@@ -30,11 +31,13 @@ export default function Solicitudes() {
         setSolicitudes(prev =>
             prev.map(s => s.id === id ? { ...s, estado: nuevoEstado } : s)
         );
+        setMensaje(`✅ Solicitud ${nuevoEstado}`);
     };
 
     const eliminarSolicitud = async (id) => {
         await deleteDoc(doc(db, "solicitudes", id));
         setSolicitudes(prev => prev.filter(s => s.id !== id));
+        setMensaje("🗑️ Solicitud eliminada");
     };
 
     return (
@@ -55,38 +58,46 @@ export default function Solicitudes() {
                 ) : error ? (
                     <p className="error">{error}</p>
                 ) : (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Tipo</th>
-                                <th>Monto</th>
-                                <th>Plazo</th>
-                                <th>Cuota</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {solicitudes.map(s => (
-                                <tr key={s.id}>
-                                    <td data-label="Nombre">{s.nombre}</td>
-                                    <td data-label="Tipo">{s.tipo}</td>
-                                    <td data-label="Monto">${s.monto.toLocaleString()}</td>
-                                    <td data-label="Plazo">{s.plazo} meses</td>
-                                    <td data-label="Cuota">${s.cuota.toLocaleString()}</td>
-                                    <td data-label="Estado">
-                                        <span className={`estado ${s.estado}`}>{s.estado}</span>
-                                    </td>
-                                    <td data-label="Acciones">
-                                        <button className="btn aprobar" onClick={() => cambiarEstado(s.id, "aprobada")}>Aprobar</button>
-                                        <button className="btn rechazar" onClick={() => cambiarEstado(s.id, "rechazada")}>Rechazar</button>
-                                        <button className="btn eliminar" onClick={() => eliminarSolicitud(s.id)}>Eliminar</button>
-                                    </td>
+                    <>
+                        {mensaje && (
+                            <div className="alerta">
+                                {mensaje}
+                            </div>
+                        )}
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Monto</th>
+                                    <th>Plazo</th>
+                                    <th>Cuota</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {solicitudes.map(s => (
+                                    <tr key={s.id}>
+                                        <td data-label="Nombre">{s.nombre}</td>
+                                        <td data-label="Tipo">{s.tipo}</td>
+                                        <td data-label="Monto">${s.monto.toLocaleString()}</td>
+                                        <td data-label="Plazo">{s.plazo} meses</td>
+                                        <td data-label="Cuota">${s.cuota.toLocaleString()}</td>
+                                        <td data-label="Estado">
+                                            <span className={`estado ${s.estado}`}>{s.estado}</span>
+                                        </td>
+                                        <td data-label="Acciones">
+                                            <button className="btn aprobar" onClick={() => cambiarEstado(s.id, "aprobada")}>Aprobar</button>
+                                            <button className="btn rechazar" onClick={() => cambiarEstado(s.id, "rechazada")}>Rechazar</button>
+                                            <button className="btn eliminar" onClick={() => eliminarSolicitud(s.id)}>Eliminar</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </>
                 )}
             </section>
         </main>
@@ -101,10 +112,11 @@ export default function Solicitudes() {
                 </div>
 
                 <nav className="footer-nav" aria-label="Enlaces del sitio">
-                <a href="/">Inicio</a>
-                <a href="/simulador">Simulador</a>
-                <a href="/solicitar">Solicitar</a>
-                <a href="/solicitudes">Solicitudes</a>
+                    <a href="/">Inicio</a>
+                    <a href="/simulador">Simulador</a>
+                    <a href="/solicitar">Solicitar</a>
+                    <a href="/solicitudes">Solicitudes</a>
+                    <a href="/productos">Productos</a>
                 </nav>
 
                 <div className="footer-info">

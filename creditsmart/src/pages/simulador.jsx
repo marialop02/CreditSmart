@@ -159,7 +159,8 @@ export default function Simulator() {
                             <a href="/">Inicio</a>
                             <a href="/simulador">Simulador</a>
                             <a href="/solicitar">Solicitar</a>
-                            <a href="/solicitudes">Solicitudes</a> {/* 🔹 nuevo enlace */}
+                            <a href="/solicitudes">Solicitudes</a>
+                            <a href="/productos">Productos</a>
                         </nav>
 
                         <div className="footer-info">
