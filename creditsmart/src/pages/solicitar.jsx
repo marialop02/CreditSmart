@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
 import { useState } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
 
 
 export default function Solicitar() {
@@ -65,7 +64,7 @@ export default function Solicitar() {
 
     // Obtener plazos dinámicos según tipo de crédito
     const obtenerPlazos = (tipo) => {
-        const credito = creditsData.find((c) => c.name === tipo);
+        const credito = productos.find((c) => c.name === tipo);
         if (!credito) return [];
         const term = credito.term;
 
@@ -235,7 +234,7 @@ export default function Solicitar() {
                     <div>
                         <label htmlFor="plazo">Plazo en meses</label>
                         <select id="plazo" value={plazo} onChange={handlePlazoChange}>
-                            {creditsData.find((c) => c.name === tipo)?.termOptions.map((p) => (
+                            {productos.find((c) => c.name === tipo)?.termOptions.map((p) => (
                                 <option key={p} value={p}>{p} meses</option>
                             ))}
                         </select>

@@ -403,42 +403,91 @@ form textarea {
     grid-column: span 2; /* útil si usas grid */
 }
 
-/*buscador-botones {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 20px;
+.titulo-seccion {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    }
+
+.tabla-solicitudes {
+    margin: 30px auto;
+    max-width: 1000px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow-x: auto;
 }
 
-.btn-limpiar, .btn-solicitar {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.tabla-solicitudes table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.tabla-solicitudes th, .tabla-solicitudes td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.tabla-solicitudes th {
+    background-color: #f5f5f5;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: #555;
 }
 
-.btn-limpiar {
-    background-color: #6c757d;
-    color: #fff;
+.tabla-solicitudes tr:nth-child(even) {
+    background-color: #fafafa;
 }
 
-.btn-limpiar:hover {
-    background-color: #5a6268;
-    transform: scale(1.05);
+.estado {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: capitalize;
 }
 
-.btn-solicitar {
+.estado.pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.estado.aprobada {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.estado.rechazada {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.btn {
+    margin: 0 4px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn.aprobar {
     background-color: #28a745;
-    color: #fff;
+    color: white;
 }
 
-.btn-solicitar:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-}*/
+.btn.rechazar {
+    background-color: #ffc107;
+    color: black;
+}
 
+.btn.eliminar {
+    background-color: #dc3545;
+    color: white;
+}
 
 .footer {
     background-color: #1c1c1c;       /* fondo oscuro elegante */
@@ -528,6 +577,43 @@ form textarea {
         grid-template-columns: 1fr;
     }
 }
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    .tabla-solicitudes table, .tabla-solicitudes thead, .tabla-solicitudes tbody, .tabla-solicitudes th, .tabla-solicitudes td, .tabla-solicitudes tr {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-solicitudes thead {
+        display: none; /* ocultamos encabezado en móviles */
+    }
+
+    .tabla-solicitudes tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .tabla-solicitudes td {
+        text-align: left;
+        padding: 8px;
+        border: none;
+        position: relative;
+    }
+
+    .tabla-solicitudes td::before {
+        content: attr(data-label); /* muestra el nombre de la columna */
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+        color: #555;
+    }
+}
+
 
 /* 📱 Responsive */
 @media (max-width: 768px) {

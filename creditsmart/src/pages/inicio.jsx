@@ -1,9 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import creditsData from "../data/creditsData";
 import CreditCard from "../components/CreditCard";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Inicio() {
+    const [productos, setProductos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchProductos = async () => {
+            try {
+                const snap = await getDocs(collection(db, "productos"));
+                const data = snap.docs
+                    .map(doc => ({ id: doc.id, ...doc.data() }))
+                    .sort((a, b) => a.name.localeCompare(b.name));
+                setProductos(data);
+            } catch (err) {
+                console.error("Error cargando productos:", err);
+                setError("No fue posible cargar los productos. Intenta de nuevo.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProductos();
+    }, []);
+
     return (
         <>
             {/* HEADER */}
@@ -52,9 +76,17 @@ export default function Inicio() {
 
                 {/* CATÁLOGO DE TARJETAS — las mismas que ya tenía */}
                 <section className="catalog">
-                    {creditsData.map((credit) => (
-                        <CreditCard key={credit.id} credit={credit} />
-                    ))}
+                    {loading ? (
+                        <p>Cargando productos...</p>
+                    ) : error ? (
+                        <p className="error">{error}</p>
+                    ) : productos.length === 0 ? (
+                        <p>No hay productos disponibles.</p>
+                    ) : (
+                        productos.map((credit) => (
+                            <CreditCard key={credit.id} credit={credit} />
+                        ))
+                    )}
                 </section>
             </main>
 

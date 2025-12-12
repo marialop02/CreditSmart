@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import creditsData from "../data/creditsData";
+import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 import CreditCard from "../components/CreditCard";
 
 export default function Simulator() {
@@ -8,16 +9,38 @@ export default function Simulator() {
     const [range, setRange] = useState(""); // rango de monto
     const [sort, setSort] = useState("");   // orden por tasa
     const [sortAmount, setSortAmount] = useState("");
+    const [productos, setProductos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+    
+    useEffect(() => {
+        const fetchProductos = async () => {
+            try {
+                const snap = await getDocs(collection(db, "productos"));
+                const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setProductos(data);
+            } catch (err) {
+                console.error("Error cargando productos:", err);
+                setError("No se pudieron cargar los productos");
+            } finally {
+            setLoading(false);
+            }
+        };
+        fetchProductos();
+        }, []);
     
     // Función para filtrar créditos
-    const filteredCredits = creditsData
+    const filteredCredits = productos
         .filter((credit) =>
             credit.name.toLowerCase().includes(search.toLowerCase())
         )
         .filter((credit) => {
             if (!range) return true;
             const [min, max] = range.split("-").map(Number);
-            return credit.minAmount >= min * 1000000 && credit.maxAmount <= max * 1000000;
+            return (
+                credit.minAmount >= min * 1000000 &&
+                credit.maxAmount <= max * 1000000
+            );
         })
         .sort((a, b) => {
             if (sort === "menor-tasa") return a.interest - b.interest;
@@ -36,6 +59,7 @@ export default function Simulator() {
                     <Link to="/">Inicio</Link>
                     <Link to="/simulador">Simulador</Link>
                     <Link to="/solicitar">Solicitar Crédito</Link>
+                    <Link to="/solicitudes">Solicitudes</Link> {/* 🔹 nuevo enlace */}
                 </nav>
             </header>
 
@@ -107,7 +131,11 @@ export default function Simulator() {
 
                 {/* CATÁLOGO */}
                 <section className="catalog">
-                    {filteredCredits.length === 0 ? (
+                    {loading ? (
+                        <p>Cargando productos...</p>
+                    ) : error ? (
+                        <p>{error}</p>
+                    ) : filteredCredits.length === 0 ? (
                         <p>No hay créditos disponibles</p>
                     ) : (
                         filteredCredits.map((credit) => (
@@ -115,6 +143,7 @@ export default function Simulator() {
                         ))
                     )}
                 </section>
+
             </main>
 
         {/* Footer */}
@@ -130,6 +159,7 @@ export default function Simulator() {
                             <a href="/">Inicio</a>
                             <a href="/simulador">Simulador</a>
                             <a href="/solicitar">Solicitar</a>
+                            <a href="/solicitudes">Solicitudes</a> {/* 🔹 nuevo enlace */}
                         </nav>
 
                         <div className="footer-info">
